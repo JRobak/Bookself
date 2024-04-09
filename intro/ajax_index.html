@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="loadText('ajax_text1.txt', function1)">Pokaż zawartość 1</button>
+    <button onclick="loadText('ajax_text2.txt', function2)">Pokaż zawartość 2</button>
+    <div id="demo"></div>
+
+    <script>
+        function loadText(url, funct) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    funct(this);
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+
+        function function1(xhttp) {
+            document.getElementById("demo").innerHTML = xhttp.responseText;
+        }
+        function function2(xhttp) {
+            document.getElementById("demo").innerHTML = xhttp.responseText;
+        }
+    </script>
+</body>
+</html>
