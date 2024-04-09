@@ -9,12 +9,12 @@ body {
     padding: 20px;
 }
 
-#bookself {
+#bookshelf {
     border-collapse: collapse;
     width: 30%;
 }
 
-#bookself th, #bookself td {
+#bookshelf th, #bookshelf td {
     background-color: #f3f5e8;
     border: 1px solid black;
     padding: 8px;
@@ -23,11 +23,11 @@ body {
     font-size: 14px; 
 }
 
-#bookself th {
+#bookshelf th {
     background-color: #ebece0;
 }
 
-#bookself tr:hover {
+#bookshelf tr:hover {
     cursor: pointer;
     background-color: #f2f2f2;
 }

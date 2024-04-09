@@ -20,9 +20,9 @@ function loadBooks(xml) {
         var author = x[i].getElementsByTagName("author")[0].childNodes[0].nodeValue;
         table += "<tr data-index='" + i + "'><td>" + (i+1) + "</td><td>" + title + "</td><td>" + author + "</td></tr>";
     }
-    document.getElementById("bookself").innerHTML = table;
+    document.getElementById("bookshelf").innerHTML = table;
 
-    var rows = document.querySelectorAll("#bookself tr");
+    var rows = document.querySelectorAll("#bookshelf tr");
     rows.forEach(function(row) {
         row.addEventListener("click", function(){
             var index = this.getAttribute("data-index");
@@ -66,4 +66,48 @@ function deleteBook(index) {
         console.error('Wystąpił błąd podczas zapisywania zmodyfikowanego XML do lokalnego magazynu:', error);
     }
     loadBooks({responseXML: xmlDoc});
+}
+
+function addNewBook() {
+    event.preventDefault();
+    var form = document.getElementById("bookForm");
+
+    // Tworzenie nowego węzła "book"
+    var newNode = xmlDoc.createElement("book");
+
+    // Tworzenie nowych węzłów dla danych książki
+    var newNodeTitle = xmlDoc.createElement("title");
+    var newNodeAuthor = xmlDoc.createElement("author");
+    var newNodeYear = xmlDoc.createElement("year");
+    var newNodePrice = xmlDoc.createElement("price");
+
+    // Ustawienie wartości tekstowych dla nowych węzłów
+    newNodeTitle.appendChild(xmlDoc.createTextNode(form.elements["title"].value));
+    newNodeAuthor.appendChild(xmlDoc.createTextNode(form.elements["author"].value));
+    newNodeYear.appendChild(xmlDoc.createTextNode(form.elements["year"].value));
+    newNodePrice.appendChild(xmlDoc.createTextNode(form.elements["price"].value));
+
+    // Ustawienie atrybutu "category" dla węzła "title"
+    newNodeTitle.setAttribute("category", form.elements["category"].value);
+
+    // Dodanie nowych węzłów do węzła "book"
+    newNode.appendChild(newNodeTitle);
+    newNode.appendChild(newNodeAuthor);
+    newNode.appendChild(newNodeYear);
+    newNode.appendChild(newNodePrice);
+
+    // Dodanie nowego węzła "book" do dokumentu XML
+    xmlDoc.getElementsByTagName("bookshelf")[0].appendChild(newNode);
+
+    // Zapisanie zmodyfikowanego XML do local storage
+    try {
+        localStorage.setItem('modifiedXML', new XMLSerializer().serializeToString(xmlDoc));
+        console.log('Zmodyfikowany XML został zapisany w lokalnym magazynie.');
+    } catch (error) {
+        console.error('Wystąpił błąd podczas zapisywania zmodyfikowanego XML do lokalnego magazynu:', error);
+    }
+
+    // Ponowne załadowanie książek
+    loadBooks({responseXML: xmlDoc});
+    return false;
 }

@@ -6,19 +6,20 @@
     <title>Document</title>
 
     <script src="book.js"></script>
-    <link rel="stylesheet" href="style_bookself.css">
+    <link rel="stylesheet" href="style_bookshelf.css">
 </head>
-<body onload="loadDoc('bookself.xml', loadBooks)">
+<body onload="loadDoc('bookshelf.xml', loadBooks)">
     <div id="content">
-        <table id="bookself"></table>
+        <table id="bookshelf"></table>
         <div id="bookDetails"></div>
         <div id="addNewBook">
-            <form>
+            <form id="bookForm">
                 <input name="title" placeholder="Title"><br>
+                <input name="category" placeholder="category"><br>
                 <input name="author" placeholder="Author"><br>
                 <input name="year" placeholder="Year"><br>
                 <input name="price" placeholder="Price"><br>
-                <input type="submit" value="Add book">
+                <button type="submit" onclick="addNewBook()">Add book</button>
             </form>
         </div>
     </div>
